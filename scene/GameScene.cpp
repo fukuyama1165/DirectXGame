@@ -6,6 +6,7 @@ using namespace DirectX;
 
 GameScene::GameScene() {}
 
+
 GameScene::~GameScene() 
 { 
 	delete model_; 
@@ -20,6 +21,7 @@ void GameScene::Initialize() {
 
 	//ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("mario.jpg");
+
 
 	//3Dモデルの生成
 	model_ = Model::Create();
@@ -38,6 +40,7 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 
 	//ビュープロジェクションの初期化
+
 	viewProjection_.Initialize();
 
 
@@ -56,6 +59,20 @@ void GameScene::Update()
 	debugText_->SetPos(50, 80);
 
 	debugText_->Printf("scale:(%lf,%f,%f)", worldTransform_.scale_.x, worldTransform_.scale_.y,worldTransform_.scale_.z);
+
+	viewProjecion_.Initialize();
+
+	//サウンドデータの読み込み
+	soundDataHandle_ = audio_->LoadWave("se_sad03.wav");
+
+	//音声再生
+	audio_->PlayWave(soundDataHandle_);
+
+	//音声再生
+	voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
+}
+
+
 }
 
 void GameScene::Draw() {
@@ -85,8 +102,10 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
+
 	//3Dモデル描画
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -99,6 +118,10 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	
+	sprite_->Draw();
+
+
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
