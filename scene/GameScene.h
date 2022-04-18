@@ -42,6 +42,11 @@ class GameScene {
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	///XMFLOAT3のXYZに値を加算する
+	/// </summary>
+	void XMFLOAT3XYZadd(DirectX::XMFLOAT3 &a ,float moveX, float moveY, float moveZ);
+
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -61,11 +66,14 @@ class GameScene {
 	 
 
 	//ワールドトランスフォーム
-	WorldTransform worldTransform_;
+	WorldTransform worldTransform_[100];
 
 	//ビュープロジェクション
 
 	ViewProjection viewProjection_;
+
+	//カメラ上方向の角度
+	float viewAngle = 0.0f;
 
 
 };
