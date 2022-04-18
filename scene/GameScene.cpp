@@ -37,24 +37,33 @@ void GameScene::Initialize() {
 	for (size_t i = 0; i < _countof(worldTransform_); i++) 
 	{
 		// X,Y,Z方向のスケーリングを設定
-		worldTransform_[i].scale_ = {1.0f, 1.0f, 1.0f};
+		worldTransform_[i].scale_ = {5.0f, 5.0f, 5.0f};
 
 		// X,Y,Z軸周りの回転角を設定
 		// XM_PI/4.0fはラジアンの計算 XMConvertToRadians(45.0f)で度数法で書ける
-		worldTransform_[i].rotation_ = {rotDist(engine), rotDist(engine), rotDist(engine)};
+		worldTransform_[i].rotation_ = {0, 0, XM_PI / -2.0f};
 
 		// X,Y,Z軸周りの平行移動を設定
-		worldTransform_[i].translation_ = {posDist(engine), posDist(engine), posDist(engine)};
+		if (i < 50) {
+
+			float a = -50+ 10*i ;
+
+			worldTransform_[i].translation_ = {-20 ,a , 0};
+		} else {
+
+			float a = 10 * (i-50);
+			worldTransform_[i].translation_ = {20, a, 0};
+		}
 
 		//ワールドトランスフォームの初期化
 		worldTransform_[i].Initialize();
 	}
 
 	//カメラ始点座標を設定
-	viewProjection_.eye = {0, 0, -50};
+	viewProjection_.eye = {0, 50, -50};
 
 	//カメラ注視点座標を設定
-	viewProjection_.target = {10, 0, 0};
+	viewProjection_.target = {0, 50, 0};
 
 	//カメラ上方向ベクトルを設定(右上45度指定)
 	viewProjection_.up = {cosf(XM_PI / 4.0f), sinf(XM_PI / 4.0f), 0.0f};
@@ -78,11 +87,11 @@ void GameScene::Update()
 		const float kEyeSpeed = 0.2f;
 
 		//押した方向で移動ベクトルを変更
-		if (input_->PushKey(DIK_W)) {
+		/*if (input_->PushKey(DIK_W)) {
 			move = {0, 0, kEyeSpeed};
 		} else if (input_->PushKey(DIK_S)) {
 			move = {0, 0, -kEyeSpeed};
-		}
+		}*/
 
 		//視点移動(ベクトルの加算)
 		XMFLOAT3XYZadd(viewProjection_.eye, move.x, move.y, move.z);
@@ -91,8 +100,8 @@ void GameScene::Update()
 		viewProjection_.UpdateMatrix();
 
 		//デバック用表示
-		debugText_->SetPos(50, 50);
-		debugText_->Printf( "eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
+		/*debugText_->SetPos(50, 50);
+		debugText_->Printf( "eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);*/
 	}
 #pragma endregion
 
@@ -106,11 +115,11 @@ void GameScene::Update()
 		const float kTargetSpeed = 0.2f;
 
 		//押した方向で移動ベクトルを変更
-		if (input_->PushKey(DIK_LEFT)) {
+		/*if (input_->PushKey(DIK_LEFT)) {
 			move = {-kTargetSpeed, 0, 0};
 		} else if (input_->PushKey(DIK_RIGHT)) {
 			move = {kTargetSpeed, 0, 0};
-		}
+		}*/
 
 		//注視点移動(ベクトルの加算)
 		XMFLOAT3XYZadd(viewProjection_.target, move.x, move.y, move.z);
@@ -119,8 +128,8 @@ void GameScene::Update()
 		viewProjection_.UpdateMatrix();
 
 		//デバック用表示
-		debugText_->SetPos(50, 70);
-		debugText_->Printf("target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y, viewProjection_.target.z);
+		/*debugText_->SetPos(50, 70);
+		debugText_->Printf("target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y, viewProjection_.target.z);*/
 	}
 	#pragma endregion
 
@@ -130,10 +139,10 @@ void GameScene::Update()
 		const float kUpRotSpeed = 0.05f;
 
 		//押した方向で移動ベクトルを変更
-		if (input_->PushKey(DIK_SPACE)) {
+		/*if (input_->PushKey(DIK_SPACE)) {
 			viewAngle += kUpRotSpeed;
 			viewAngle = fmodf(viewAngle, XM_2PI);
-		}
+		}*/
 
 		//上方向ベクトルを計算(半径1の円周上の座標)
 		viewProjection_.up = {cosf(viewAngle), sinf(viewAngle), 0.0f};
@@ -142,8 +151,8 @@ void GameScene::Update()
 		viewProjection_.UpdateMatrix();
 
 		//デバック用表示
-		debugText_->SetPos(50, 90);
-		debugText_->Printf("up:%f,%f,%f", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
+		/*debugText_->SetPos(50, 90);
+		debugText_->Printf("up:%f,%f,%f", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);*/
 
 	}
 #pragma endregion
