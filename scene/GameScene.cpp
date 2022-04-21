@@ -63,7 +63,7 @@ void GameScene::Initialize() {
 	viewProjection_.up = {1.0f, 0.0f, 0.0f};
 
 	//カメラ垂直方向視野角を設定
-	//viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
+	viewProjection_.fovAngleY = XMConvertToRadians(45.0f);
 
 	//アスペクト比を設定
 	//viewProjection_.aspectRatio = 1.0f;
@@ -167,23 +167,23 @@ void GameScene::Update()
 	#pragma region foV変更処理
 
 	{
-		////上キーで視野角が広がる
-		//if (input_->PushKey(DIK_UP)) {
-		//	viewProjection_.fovAngleY += 0.01f;
-		//	viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, XM_PI);
-		//}
+		//上キーで視野角が広がる
+		if (input_->PushKey(DIK_W)) {
+			viewProjection_.fovAngleY += 0.01f;
+			viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, XM_PI);
+		}
 
-		////下キーで視野角が狭まる
-		//else if (input_->PushKey(DIK_DOWN)) {
-		//	viewProjection_.fovAngleY -= 0.01f;
-		//	viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 0.01f);
-		//}
+		//下キーで視野角が狭まる
+		else if (input_->PushKey(DIK_S)) {
+			viewProjection_.fovAngleY -= 0.01f;
+			viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 0.01f);
+		}
 
-		//viewProjection_.UpdateMatrix();
+		viewProjection_.UpdateMatrix();
 
-		////デバック用表示
-		//debugText_->SetPos(50, 110);
-		//debugText_->Printf("fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
+		//デバック用表示
+		debugText_->SetPos(50, 110);
+		debugText_->Printf("fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
 
 	}
 
