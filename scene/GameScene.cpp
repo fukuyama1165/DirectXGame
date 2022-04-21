@@ -7,6 +7,7 @@ using namespace DirectX;
 
 GameScene::GameScene() {}
 
+
 GameScene::~GameScene() 
 { 
 	delete model_; 
@@ -21,6 +22,7 @@ void GameScene::Initialize() {
 
 	//ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("mario.jpg");
+
 
 	//3Dモデルの生成
 	model_ = Model::Create();
@@ -117,6 +119,7 @@ void GameScene::Initialize() {
 
 
 	//ビュープロジェクションの初期化
+
 	viewProjection_.Initialize();
 
 
@@ -312,9 +315,7 @@ void GameScene::Update()
 	}
 
 #pragma endregion
-
-
-
+  
 	//大元から順に更新していく
 	worldTransform_[PartId::Root].UpdateMatrix();
 	worldTransform_[PartId::Spine].UpdateMatrix();
@@ -327,8 +328,6 @@ void GameScene::Update()
 	worldTransform_[PartId::LegR].UpdateMatrix();
 
 #pragma endregion
-
-
 
 }
 
@@ -359,6 +358,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
+
 	//3Dモデル描画
 	/*for (size_t i = 0; i < _countof(worldTransform_); i++) {
 
@@ -375,6 +375,7 @@ void GameScene::Draw() {
 	model_->Draw(worldTransform_[PartId::LegL], viewProjection_, textureHandle_);
 	model_->Draw(worldTransform_[PartId::LegR], viewProjection_, textureHandle_);
 
+
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -386,6 +387,10 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	
+	sprite_->Draw();
+
+
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
