@@ -46,7 +46,10 @@ void GameScene::Initialize() {
 		worldTransform_[i].rotation_ = {rotDist(engine), rotDist(engine), rotDist(engine)};
 
 		// X,Y,Z軸周りの平行移動を設定
-		worldTransform_[i].translation_ = {posDist(engine), posDist(engine), posDist(engine)};
+		
+
+			worldTransform_[i].translation_ = {posDist(engine), posDist(engine), posDist(engine)};
+		
 
 		//ワールドトランスフォームの初期化
 		worldTransform_[i].Initialize();
@@ -56,7 +59,7 @@ void GameScene::Initialize() {
 	viewProjection_.eye = {0, 0, -50};
 
 	//カメラ注視点座標を設定
-	viewProjection_.target = {10, 0, 0};
+	viewProjection_.target = {0, 0, 0};
 
 	//カメラ上方向ベクトルを設定(右上45度指定)
 	viewProjection_.up = {cosf(XM_PI / 4.0f), sinf(XM_PI / 4.0f), 0.0f};
@@ -146,7 +149,7 @@ void GameScene::Update()
 
 		//デバック用表示
 		debugText_->SetPos(50, 90);
-		debugText_->Printf("up:%f,%f,%f", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
+		debugText_->Printf("up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
 
 	}
 #pragma endregion
