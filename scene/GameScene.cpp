@@ -223,9 +223,9 @@ void GameScene::Update()
 
 		//viewProjection_.UpdateMatrix();
 
-		////デバック用表示
-		//debugText_->SetPos(50, 110);
-		//debugText_->Printf("fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
+		//デバック用表示
+		debugText_->SetPos(50, 110);
+		debugText_->Printf("fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
 
 	}
 
@@ -243,9 +243,9 @@ void GameScene::Update()
 	//	//行列の再計算
 	//	viewProjection_.UpdateMatrix();
 
-	//	//デバック用表示
-	//	debugText_->SetPos(50, 130);
-	//	debugText_->Printf("nearZ:%f", viewProjection_.nearZ);
+		//デバック用表示
+		debugText_->SetPos(50, 130);
+		debugText_->Printf("nearZ:%f", viewProjection_.nearZ);
 
 	//}
 
